@@ -33,7 +33,7 @@
         <view class="nav_text">双眼皮</view>
       </navigator>
     </view>
-
+    <!-- <button size="mini" type="default" bindtap="onAdd">新增记录</button> -->
     <!--发现好商品模块-->
     
     <view class="bc">
