@@ -1,0 +1,117 @@
+<view class="container">
+    <view class="top_search">
+      <view class="search_read_only">
+        <navigator class="search_content" url="/pages/skip/search/search">
+          <i class="iconfont icon-search"/>
+          <view class="search_input">搜索商品</view>
+        </navigator>
+      </view>
+    </view>
+    <swiper class="swiper" indicator-active-color="{{indicatorActiveColor}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true">
+      <block  wx:for="{{adList}}" wx:key="key">
+        <swiper-item>
+          <image src="{{item.picUrl}}" class="slide-image" bindtap="goToAdvert" data-wpygotoadvert-a="{{item.advertUrl}}"/>
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <view class="nav_list">
+      <navigator open-type="switchTab" bindtap="goGoodsAll" url="/pages/classify/classify">
+        <image src="../../images/icon_nav_01_new.png" class="nav_icon"/>
+        <view class="nav_text">瘦脸</view>
+      </navigator>
+      <navigator open-type="navigate" bindtap="goGoodsAll2" url="/pages/classify/classify">
+        <image src="../../images/icon_nav_02_new.png" class="nav_icon"/>
+        <view class="nav_text">丰胸</view>
+      </navigator>
+      <navigator open-type="navigate" bindtap="goGoodsAll3" url="/pages/classify/classify">
+        <image src="../../images/icon_nav_03_new.png" class="nav_icon"/>
+        <view class="nav_text">美白</view>
+      </navigator>
+      <navigator open-type="navigate" bindtap="goGoodsAll4" url="/pages/classify/classify">
+        <image src="../../images/icon_nav_04_new.png" class="nav_icon"/>
+        <view class="nav_text">双眼皮</view>
+      </navigator>
+    </view>
+
+    <!--发现好商品模块-->
+    
+    <view class="bc">
+        <view class="discover">
+            <view class="discover_title_doc">限时秒杀</view>
+        </view>
+        <view class="discover_list">
+            <navigator class="item" open-type="navigate"  wx:for="{{$discover$list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.pid}}">
+                <image class="discover_img" src="{{item.logo}}"/>
+                <!--<view class="info" wx:for="{{item.intro}}" wx:key="item">-->
+                    <view>{{item.intro}} </view>
+                <!--</view>-->
+            </navigator>
+        </view>
+    </view>
+
+    <!--优选商品-->
+    <view class="pre">
+      <view class="pre_title_doc">优选商品</view>
+      
+  <scroll-view scroll-y="true" class="swiper-item-box">
+    <view class="shop_item">
+      <navigator class="list"  wx:for="{{$shopGridList$list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.id}}&purchasetype={{$shopGridList$purchasetype}}&special={{$shopGridList$special}}">
+        <view class="image_box">
+          <image src="{{item.cover}}"/>
+        </view>
+        <view class="goods">
+          <view class="product_name" wx:if="{{$shopGridList$showTitle}}">{{item.name}}</view>
+          <view class="product_info">
+            <view class="price">￥{{item.originalPrice}}</view>
+            <view class="cost_price">￥{{item.promotePrice}}</view>
+            <view class="sale_num">销量：{{item.stock}}</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </scroll-view>
+
+    </view>
+    <!--加载更多时动画-->
+    
+    <view class="loadMoreGif"  wx:if="{{$bottomLoadMore$show}}">
+        <image src="../../images/loadding.gif"/>
+        <text>{{$bottomLoadMore$message}}</text>
+    </view>
+
+    <!--暂无数据显示-->
+    
+    <view class="empty-placeholder row-center"  wx:if="{{$placeholder$show}}">
+        <image class="icon-xl" src="../../images/empty.png"/>
+        <view class="txt">{{$placeholder$message}}</view>
+    </view>
+
+    <!--弹屏  types:0 图片  1：领红包   show 是否显示  @close 关闭回调  @callback 点击图片回调 或确定回调-->
+    
+  <view  wx:if="{{$bombscreen$show}}">
+    <view wx:if="{{$bombscreen$types===0}}">
+      <view class="pop-alert-box">
+        <image src="/images/icon_alert.png" class="icon_alert" catchtap="$bombscreen$callback"/>
+        <i class="iconfont icon-close" catchtap="$bombscreen$close"/>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="pop-alert-box dialog">
+        <view class="alert-content-box">
+          <view class="alert-content">
+            <image src="/images/icon_alert.png" class="icon_alert_dialog"/>
+            <view class="title">恭喜获得红包</view>
+            <view class="title-doc">恭喜获得一张卡券，已发放至该账号</view>
+          </view>
+          <view class="btn_box">
+            <view class="button type_red" catchtap="$bombscreen$callback">点击领取</view>
+          </view>
+        </view>
+          <i class="iconfont icon-close" catchtap="$bombscreen$close"/>
+      </view>
+    </view>
+    <view class="alert_mask" catchtap="$bombscreen$close"/>
+  </view>
+
+  </view>

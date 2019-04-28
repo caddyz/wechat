@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/authorize/authorize",
+    "pages/home/home",
+    "pages/classify/classify",
+    "pages/info/info",
+    "pages/skip/search/search",
+    "pages/skip/goods_detail/goods_detail"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "安妮摩登",
+    "enablePullDownRefresh": false,
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff6a3c",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_active.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类",
+        "iconPath": "images/icon_classify.png",
+        "selectedIconPath": "images/icon_classify_active.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "text": "会员",
+        "iconPath": "images/icon_info.png",
+        "selectedIconPath": "images/icon_info_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
