@@ -81,5 +81,8 @@ Page({
     this.setData({
       input_value: ""
     })
+  },
+  search: function(){
+    console.log(this.data.input_value)
   }
 })
