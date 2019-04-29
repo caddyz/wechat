@@ -1,2 +1,93 @@
 <!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+  <view class="top_search">
+    <view class="search_read_only">
+      <navigator class="search_content" url="/pages/skip/search/search">
+        <i class="iconfont icon-search"/>
+        <view class="search_input">搜索商品</view>
+      </navigator>
+    </view>
+  </view>
+  <view class="fifler">
+    
+  <view class="bar">
+    <view class="filter">
+      <!--<view class="nav {{currentType=='zonghe' ? 'nav_active' : ''}}" data-current="zonghe" bindtap="orderBy">综合</view>-->
+      <!--<view class="nav  {{currentType=='sale' ? 'nav_active' : ''}}" data-current="sale" bindtap="orderBy">销量</view>-->
+      <!--<view class="grid nav">-->
+        <!--<view class="price {{currentType=='price' ? 'nav_active' : ''}}" data-current="price" catchtap="orderBy">价格</view>-->
+        <view>
+          <!--<view class="arrow_up {{arrowType=='desc' ? 'arrow_up_red' : 'arrow_up_gray'}}"></view>-->
+          <!--<!&ndash; 向下的三角形 &ndash;&gt;-->
+          <!--<view class="arrow_down {{arrowType=='asc' ? 'arrow_down_red' : 'arrow_down_gray'}} "></view>-->
+        <!--</view>-->
+      </view>
+      <view class="nav" bindtap="filterSearch">筛选<i class="iconfont icon-filter"/></view>
+    </view>
+    <!--筛选测栏-->
+    
+  <view  wx:if="{{show}}">
+    <view class="filter-slider">
+      <view class="block">
+        <view class="title">分类</view>
+        <view class="item_box">
+          <view class="item" data-sku="0" catchtap="selSKU">全部</view>
+          <view class="item" data-sku="1" catchtap="selSKU">瘦脸</view>
+          <view class="item" data-sku="2" catchtap="selSKU">丰胸</view>
+          <view class="item" data-sku="3" catchtap="selSKU">美白</view>
+          <view class="item" data-sku="4" catchtap="selSKU">双眼皮</view>
+        </view>
+      </view>
+      <view class="btn_group">
+        <view class="btn_left_box">
+          <!-- <view class="button type_empity">重置</view> -->
+        </view>
+        <view class="btn_right_box">
+          <view class="button type_yellow" bindtap="filterSearch">确认</view>
+        </view>
+      </view>
+    </view>
+    <view class="modal-overlay modal-overlay-visible" bindtap="close" data-wpyclose-a=""/>
+  </view>
+
+  </view>
+  </view>
+
+  <view class="shop_list">
+    <!--矩阵商品列表模块-->
+    
+  <scroll-view scroll-y="true" class="swiper-item-box">
+    <view class="shop_item">
+      <navigator class="list"  wx:for="{{list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.id}}">
+        <view class="image_box">
+          <image src="{{item.cover}}"/>
+        </view>
+        <view class="goods">
+          <view class="product_name">{{item.name}}</view>
+          <view class="product_info">
+            <view class="price">￥{{item.original_price}}</view>
+            <!-- <view class="cost_price">￥{{item.promote_price}}</view> -->
+            <view class="sale_num">已有{{item.stock}}人购买</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </scroll-view>
+
+    <!--加载更多时动画-->
+    
+    <view class="loadMoreGif"  wx:if="{{showLoading}}">
+        <image src="/images/loadding.gif"/>
+        <text>正在加载中</text>
+    </view>
+    <view class="loadMoreGif"  wx:if="{{!showLoading}}">
+        <text>已经到底了</text>
+    </view>
+
+    <!--暂无数据显示-->
+    
+    <!-- <view class="empty-placeholder row-center"  wx:if="{{$placeholder$show}}">
+        <image class="icon-xl" src="../../images/empty.png"/>
+        <view class="txt">{{$placeholder$message}}</view>
+    </view> -->
+
+  </view>

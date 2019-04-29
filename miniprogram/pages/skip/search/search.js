@@ -5,7 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    show: true,
+    list: [],
+    showLoading: true,
+    input_value: '',
+    is_empty: true
   },
 
   /**
@@ -62,5 +66,20 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  goBack: function () {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+  searchInput: function (e) {
+    this.setData({
+      input_value: e.detail.value
+    })
+  },
+  delText: function(){
+    this.setData({
+      input_value: ""
+    })
   }
 })

@@ -16,24 +16,23 @@
     </swiper>
 
     <view class="nav_list">
-      <navigator open-type="switchTab" bindtap="goGoodsAll" url="/pages/classify/classify">
-        <image src="../../images/icon_nav_01_new.png" class="nav_icon"/>
+      <navigator open-type="navigate" data-sku="1" bindtap="goGoodsAll" url="/pages/classify/classify">
+        <image src="/images/icon_nav_01_new.png" class="nav_icon"/>
         <view class="nav_text">瘦脸</view>
       </navigator>
-      <navigator open-type="navigate" bindtap="goGoodsAll2" url="/pages/classify/classify">
-        <image src="../../images/icon_nav_02_new.png" class="nav_icon"/>
+      <navigator open-type="navigate" data-sku="2" bindtap="goGoodsAll" url="/pages/classify/classify">
+        <image src="/images/icon_nav_02_new.png" class="nav_icon"/>
         <view class="nav_text">丰胸</view>
       </navigator>
-      <navigator open-type="navigate" bindtap="goGoodsAll3" url="/pages/classify/classify">
-        <image src="../../images/icon_nav_03_new.png" class="nav_icon"/>
+      <navigator open-type="navigate" data-sku="3" bindtap="goGoodsAll" url="/pages/classify/classify">
+        <image src="/images/icon_nav_03_new.png" class="nav_icon"/>
         <view class="nav_text">美白</view>
       </navigator>
-      <navigator open-type="navigate" bindtap="goGoodsAll4" url="/pages/classify/classify">
-        <image src="../../images/icon_nav_04_new.png" class="nav_icon"/>
+      <navigator open-type="navigate" data-sku="4" bindtap="goGoodsAll" url="/pages/classify/classify">
+        <image src="/images/icon_nav_04_new.png" class="nav_icon"/>
         <view class="nav_text">双眼皮</view>
       </navigator>
     </view>
-    <!-- <button size="mini" type="default" bindtap="onAdd">新增记录</button> -->
     <!--发现好商品模块-->
     
     <view class="bc">
@@ -41,7 +40,7 @@
             <view class="discover_title_doc">限时秒杀</view>
         </view>
         <view class="discover_list">
-            <navigator class="item" open-type="navigate"  wx:for="{{$discover$list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.pid}}">
+            <navigator class="item" open-type="navigate"  wx:for="{{discoverList}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.pid}}">
                 <image class="discover_img" src="{{item.logo}}"/>
                 <!--<view class="info" wx:for="{{item.intro}}" wx:key="item">-->
                     <view>{{item.intro}} </view>
@@ -56,16 +55,16 @@
       
   <scroll-view scroll-y="true" class="swiper-item-box">
     <view class="shop_item">
-      <navigator class="list"  wx:for="{{$shopGridList$list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.id}}&purchasetype={{$shopGridList$purchasetype}}&special={{$shopGridList$special}}">
+      <navigator class="list"  wx:for="{{list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.id}}">
         <view class="image_box">
           <image src="{{item.cover}}"/>
         </view>
         <view class="goods">
-          <view class="product_name" wx:if="{{$shopGridList$showTitle}}">{{item.name}}</view>
+          <view class="product_name">{{item.name}}</view>
           <view class="product_info">
-            <view class="price">￥{{item.originalPrice}}</view>
-            <view class="cost_price">￥{{item.promotePrice}}</view>
-            <view class="sale_num">销量：{{item.stock}}</view>
+            <view class="price">￥{{item.original_price}}</view>
+            <!-- <view class="cost_price">￥{{item.promote_price}}</view> -->
+            <view class="sale_num">已有{{item.stock}}人购买</view>
           </view>
         </view>
       </navigator>
@@ -75,22 +74,25 @@
     </view>
     <!--加载更多时动画-->
     
-    <view class="loadMoreGif"  wx:if="{{$bottomLoadMore$show}}">
-        <image src="../../images/loadding.gif"/>
-        <text>{{$bottomLoadMore$message}}</text>
+    <view class="loadMoreGif"  wx:if="{{showLoading}}">
+        <image src="/images/loadding.gif"/>
+        <text>正在加载中</text>
+    </view>
+    <view class="loadMoreGif"  wx:if="{{!showLoading}}">
+        <text>已经到底了</text>
     </view>
 
     <!--暂无数据显示-->
     
-    <view class="empty-placeholder row-center"  wx:if="{{$placeholder$show}}">
-        <image class="icon-xl" src="../../images/empty.png"/>
-        <view class="txt">{{$placeholder$message}}</view>
-    </view>
+    <!-- <view class="empty-placeholder row-center"  wx:if="{{is_empty}}">
+        <image class="icon-xl" src="/images/empty.png"/>
+        <view class="txt">暂无发现数据</view>
+    </view> -->
 
     <!--弹屏  types:0 图片  1：领红包   show 是否显示  @close 关闭回调  @callback 点击图片回调 或确定回调-->
     
-  <view  wx:if="{{$bombscreen$show}}">
-    <view wx:if="{{$bombscreen$types===0}}">
+  <!-- <view  wx:if="{{show}}">
+    <view wx:if="{{types===0}}">
       <view class="pop-alert-box">
         <image src="/images/icon_alert.png" class="icon_alert" catchtap="$bombscreen$callback"/>
         <i class="iconfont icon-close" catchtap="$bombscreen$close"/>
@@ -112,6 +114,6 @@
       </view>
     </view>
     <view class="alert_mask" catchtap="$bombscreen$close"/>
-  </view>
+  </view> -->
 
   </view>

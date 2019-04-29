@@ -1,2 +1,66 @@
-<!--pages/info/info.wxml-->
-<text>pages/info/info.wxml</text>
+<view class="info">
+    <view class="header">
+      <view class="header_content">
+        <image class="avatarUrl" src="{{avatarUrl}}"/>
+        <view class="nickName cfff">{{nickName}}</view>
+        <!-- <view class="nickName cfff">【等级：会员】<text  wx:if="{{false}}">【推荐人：阿里】 </text></view> -->
+      </view>
+    </view>
+    <!--tab模块-->
+    <view class="tab_box">
+      
+  <!--index.wxml-->
+  <view class="swiper-tab">
+    <view  wx:for="{{$tab$tabList}}" wx:key="index" class="swiper-tab-list {{$tab$currentTab==index ? 'active' : ''}}" data-current="{{index}}" bindtap="$tab$swichNav">
+      {{item.name? item.name:item}}
+      <view class=" {{item.dotNum>=100?'dotbig':'dot'}}" wx:if="{{item.dotNum>0}}">{{item.dotNum}}</view>
+    </view>
+  </view>
+
+    </view>
+    <view class="info_block" hidden="{{!currentBlooean}}">
+      <navigator class="item" url="/pages/left/order">
+        <view class="item_content">
+          <image class="item_img" src="/images/icon_my_02.png"/>
+          <view class="text">全部订单</view>
+        </view>
+        <view class="arrow">></view>
+      </navigator>
+      <navigator class="item" url="/pages/right/points">
+        <view class="item_content">
+          <image class="item_img" src="/images/icon_my_03.png"/>
+          <view class="text">我的积分</view>
+        </view>
+        <view class="arrow">></view>
+      </navigator>
+      <navigator class="item" url="/pages/right/collection?type=0">
+        <view class="item_content">
+          <image class="item_img" src="/images/icon_my_04.png"/>
+          <view class="text">我的足迹</view>
+        </view>
+        <view class="arrow">></view>
+      </navigator>
+    
+    </view>
+    <!--分销中心-->
+    <view class="info_block" hidden="{{currentBlooean}}">
+    
+      <navigator class="item" url="/pages/right/qr_code">
+        <view class="item_content">
+          <image class="item_img" src="/images/icon_my_09.png"/>
+          <view class="text">二维码</view>
+        </view>
+        <view class="arrow">></view>
+      </navigator>
+     
+    </view>
+    <view class="info_block">
+      <navigator class="item" url="/pages/right/setting">
+        <view class="item_content">
+          <image class="item_img" src="/images/icon_my_07.png"/>
+          <view class="text">设置</view>
+        </view>
+        <view class="arrow">></view>
+      </navigator>
+    </view>
+  </view>
