@@ -9,14 +9,17 @@ Page({
     list: [],
     showLoading: true,
     input_value: '',
-    is_empty: true
+    is_empty: true,
+    keywordhisList: [],
+    currentPage: 1,
+    showHis: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.onQueryHistory()
   },
 
   /**
@@ -51,7 +54,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.data.currentPage += 1
+    this.listOnQuery((this.data.currentPage - 1) * 10);
   },
 
   /**
@@ -83,6 +87,92 @@ Page({
     })
   },
   search: function(){
-    console.log(this.data.input_value)
+    this.onDimQuery(0)
+  },
+  onDimQuery: function(num){
+    const db = wx.cloud.database()
+    db.collection('goods').where({
+      name: db.RegExp({
+        regexp: '.*'+this.data.input_value,
+        options: 'i', 
+      })
+    }).skip(num).limit(10).get().then(res => {
+      let arrList = []
+      if (res.data.length > 0) {
+        arrList = this.data.list.concat(res.data)
+        this.setData({
+          is_empty: true,
+          list: arrList
+        })
+      } else {
+        arrList = this.data.list
+        this.setData({
+          list: arrList,
+          showLoading: false
+        })
+      }
+      if(num === 0){
+        if(!(this.data.list.length > 0)){
+          this.setData({
+            is_empty: false,
+          })
+        }
+      }
+      this.onAddHistory()
+    }).catch(err => {
+      wx.showToast({
+        icon: 'none',
+        title: '查询记录失败'
+      })
+    })
+  },
+  onAddHistory: function(){
+    const db = wx.cloud.database()
+    db.collection('history').add({
+      data: {
+        searchRecord: this.data.input_value
+      }
+    }).then(res => {
+      console.log("成功添加搜索记录")
+    })
+  },
+  onQueryHistory: function(){
+    const db = wx.cloud.database()
+    db.collection('history').where({
+      _openid: getApp().globalData.openid
+    }).get().then(res => {
+      this.setData({
+        keywordhisList: res.data
+      })
+    }).catch(err => {
+      wx.showToast({
+        icon: 'none',
+        title: '获取历史记录失败',
+      })
+    })
+  },
+  clearHis: function(){
+    wx.cloud.callFunction({
+      name: 'hisRemove',
+      data: {
+        openid: getApp().globalData.openid
+      }
+    }).then(res => {
+      console.log("删除成功")
+      this.setData({
+        keywordhisList: []
+      })
+    }).catch(err => {
+      wx.showToast({
+        icon: 'none',
+        title: '清除历史记录失败',
+      })
+    })
+  },
+  selHisKeyWord: function(e) {
+    console.log(e.currentTarget.dataset.id)
+    this.setData({
+      input_value: e.currentTarget.dataset.id
+    })
   }
 })

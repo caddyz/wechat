@@ -80,7 +80,6 @@ Page({
   onReachBottom: function () {
     this.data.currentPage += 1
     this.listOnQuery((this.data.currentPage-1)*10);
-    console.log("num的值：" + this.data.currentPage)
   },
 
   /**
@@ -136,13 +135,11 @@ Page({
           showLoading: false
         })
       }
-      console.log('[数据库] [查询记录] 成功: ', res)
     }).catch(err => {
       wx.showToast({
         icon: 'none',
         title: '查询记录失败'
       })
-      console.log('[数据库] [查询记录] 成功: ', err)
     })
   },
   goGoodsAll: function (e) {
@@ -152,48 +149,4 @@ Page({
       url: '/pages/classify/classify',
     })
   }
-  // onAdd: function () {
-      // db.collection('discover').where({
-    //   // _openid: getApp().globalData.openid
-    // }).get({
-    //   success: res => {
-    //     console.log(res.data)
-    //     this.setData({
-    //       adList: res.data
-    //     })
-    //     console.log('[数据库] [查询记录] 成功: ', res)
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
-  //   const db = wx.cloud.database()
-  //   db.collection('discover').add({
-  //     data: {
-  //       count: 1
-  //     },
-  //     success: res => {
-  //       // 在返回结果中会包含新创建的记录的 _id
-  //       this.setData({
-  //         counterId: res._id,
-  //         count: 1
-  //       })
-  //       wx.showToast({
-  //         title: '新增记录成功',
-  //       })
-  //       console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
-  //     },
-  //     fail: err => {
-  //       wx.showToast({
-  //         icon: 'none',
-  //         title: '新增记录失败'
-  //       })
-  //       console.error('[数据库] [新增记录] 失败：', err)
-  //     }
-  //   })
-  // },
 })

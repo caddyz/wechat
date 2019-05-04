@@ -55,7 +55,7 @@
       
   <scroll-view scroll-y="true" class="swiper-item-box">
     <view class="shop_item">
-      <navigator class="list"  wx:for="{{list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item.id}}">
+      <navigator class="list"  wx:for="{{list}}" wx:key="item" url="/pages/skip/goods_detail/goods_detail?id={{item._id}}">
         <view class="image_box">
           <image src="{{item.cover}}"/>
         </view>

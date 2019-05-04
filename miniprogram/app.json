@@ -5,7 +5,10 @@
     "pages/classify/classify",
     "pages/info/info",
     "pages/skip/search/search",
-    "pages/skip/goods_detail/goods_detail"
+    "pages/skip/goods_detail/goods_detail",
+    "pages/skip/points/points",
+    "pages/skip/qr_code/qr_code",
+    "pages/skip/setting/setting"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

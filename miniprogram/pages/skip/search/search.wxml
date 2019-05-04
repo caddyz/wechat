@@ -37,22 +37,25 @@
   <view class="loadMoreGif"  wx:if="{{!showLoading}}">
     <text>已经到底了</text>
   </view>
-<!--暂无数据显示-->  
-  <view class="empty-placeholder row-center"  wx:if="{{is_empty}}">
-    <image class="icon-xl" src="/images/empty.png"/>
-    <view class="txt">暂无数据</view>
-  </view>
 </view>
+
   <!-- 历史记录 -->
-  <view class="history {{show?'':'hidden'}}"  wx:else>
+  <view class="history {{is_empty?'':'hidden'}}"  wx:else>
     <view class="doc">历史记录</view>
       <view class="lable">
-        <view wx:for="{{keywordhisList}}" wx:key="item" catchtap="selHisKeyWord" data-id="{{item.id}}">
-          <view class="child {{item.sel=='1' ?'active':''}}">{{item.keyword}}</view>
+        <view wx:for="{{keywordhisList}}" wx:key="item" catchtap="selHisKeyWord" data-id="{{item.searchRecord}}">
+          <view class="child {{showHis ?'active':''}}">{{item.searchRecord}}</view>
         </view>
       </view>
       <view class="btn_box">
         <view class="button type_empity" catchtap="clearHis">清除历史记录</view>
       </view>
     </view>
+
+    <!--暂无数据显示-->  
+  <view class="empty-placeholder row-center"  hidden='{{is_empty}}'>
+    <image class="icon-xl" src="/images/empty_cart.png"/>
+    <view class="txt">您搜索的商品暂时没有</view>
   </view>
+
+</view>

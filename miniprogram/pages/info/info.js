@@ -1,17 +1,26 @@
+var constant = require('../../util/constant.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    avatarUrl: '',
+    nickName: '',
+    tabList:["会员中心","分销中心"],
+    currentTab: 0,
+    currentBlooean: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var userInfo = JSON.parse(wx.getStorageSync(constant.USER_INFO))
+    this.setData({
+      avatarUrl: userInfo.avatarUrl,
+      nickName: userInfo.nickName
+    })
   },
 
   /**
@@ -61,5 +70,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  swichNav: function(e){
+    if (this.data.currentTab === e.target.dataset.current){
+      return
+    }
+    this.setData({
+      currentTab: e.target.dataset.current,
+      currentBlooean: !this.data.currentBlooean
+    })
   }
 })

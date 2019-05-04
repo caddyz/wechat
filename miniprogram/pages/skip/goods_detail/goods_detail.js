@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    winWidth: 0,
+    winHeight: '100%',
+    detail: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.goodsId = options.id
+    console.log(this.goodsId)
+    this.onQueryGoodsInfo(options.id);
+    console.log(this.data.detail)
   },
 
   /**
@@ -62,5 +67,21 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onQueryGoodsInfo: function (id) {
+    const db = wx.cloud.database()
+    db.collection('goods').where({
+      _id: id
+    }).get().then(res => {
+      this.setData({
+        detail: res.data
+      })
+      console.log("获取到的信息：",res)
+    }).catch(err => {
+      wx.showToast({
+        icon: 'none',
+        title: '查询记录失败'
+      })
+    })
   }
 })
